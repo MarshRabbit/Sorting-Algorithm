@@ -38,4 +38,30 @@ class Bubble {
 
 *구현*
 ```java
+class Selection {
+    int[] array;
+    int temp;
+
+    Selection(int[] num) {
+        array = num;
+    }
+
+    public void start() {
+        System.out.println("선택정렬 시작");
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < array.length - 1; i++) {
+            int index = i;
+            for (int j = i + 1; j < array.length; j++)
+                if (array[index] > array[j])
+                    index = j;
+            temp = array[index];
+            array[index] = array[i];
+            array[i] = array[index];
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("선택정렬 종료, 소요시간: " + (end - start) +" ms");
+    }
+}
 ```
+
+## 
