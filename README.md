@@ -64,4 +64,29 @@ class Selection {
 }
 ```
 
-## 
+## 삽입정렬이란
+삽입정렬은 배열의 앞부분을 정렬된 부분으로, 배열의 뒷부분을 정렬이 안 된 부분으로 나누고 정렬이 안 된 부분의 가장 왼쪽 값을 정렬된 부분에서 선택한 값보다 작은수가 나올때 까지 오른쪽으로 밀고 그 자리에 삽입하는 방식이다.
+
+``` java
+class Insertion {
+    int[] array;
+    int temp, j;
+
+    Insertion(int[] num) {
+        array = num;
+    }
+
+    public void start() {
+        System.out.println("삽입정렬 시작");
+        long start = System.currentTimeMillis();
+        for (int i = 1; i < array.length; i++) {
+            temp = array[i];
+            for (j = i - 1; j >= 0 && temp < array[j]; j--)
+                array[j+1] = array[j];
+            array[j +1] = temp;
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("삽입정렬 종료, 소요시간: " + (end - start) +" ms");
+    }
+}
+```
