@@ -131,3 +131,138 @@ class Shell {
         System.out.println("쉘정렬 종료, 소요시간: " + (end - start) +" ms");
     }
 ```
+
+## 전체 코드
+``` java
+package Lab01;
+import java.util.Scanner;
+
+class Bubble {
+    int[] array;
+    int temp;
+
+    Bubble(int[] num) {
+        array = num;
+    }
+
+    public void start() {
+        System.out.println("버블정렬 시작");
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < array.length - 1; i++)
+            for (int j = 1; j < array.length - i; j++)
+                if (array[j] < array[j - 1]) {
+                    temp = array[j - 1];
+                    array[j - 1] = array[j];
+                    array[j] = temp;
+                }
+        long end = System.currentTimeMillis();
+        System.out.println("버블정렬 종료, 소요시간: " + (end - start) +" ms");
+    }
+}
+
+class Selection {
+    int[] array;
+    int temp;
+
+    Selection(int[] num) {
+        array = num;
+    }
+
+    public void start() {
+        System.out.println("선택정렬 시작");
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < array.length - 1; i++) {
+            int index = i;
+            for (int j = i + 1; j < array.length; j++)
+                if (array[index] > array[j])
+                    index = j;
+
+            temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("선택정렬 종료, 소요시간: " + (end - start) +" ms");
+    }
+}
+
+class Insertion {
+    int[] array;
+    int temp, j;
+
+    Insertion(int[] num) {
+        array = num;
+    }
+
+    public void start() {
+        System.out.println("삽입정렬 시작");
+        long start = System.currentTimeMillis();
+        for (int i = 1; i < array.length; i++) {
+            temp = array[i];
+            for (j = i - 1; j >= 0 && temp < array[j]; j--)
+                array[j+1] = array[j];
+            array[j +1] = temp;
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("삽입정렬 종료, 소요시간: " + (end - start) +" ms");
+    }
+}
+
+class Shell {
+    int[] array;
+    int temp, index;
+    int[] gaps =
+            { 1, 4, 10, 23, 57, 132, 301, 701, 1750, 3937, 8858, 19930, 44842, 100894,
+            227011, 510774, 1149241, 2585792, 5818032, 13090572};
+
+    Shell(int[] num) {
+        array = num;
+    }
+
+    public void start() {
+        System.out.println("쉘정렬 시작");
+        for (index = 0; gaps[index] > array.length; index++) {}
+        long start = System.currentTimeMillis();
+        while (index >= 0) {
+            int step = gaps[index--];
+            for (int i = step; i < array.length; i++)
+                for (int j = i; j >= step && array[j] < array[j-step]; j -= step) {
+                    temp = array[j];
+                    array[j] = array[j-step];
+                    array[j-step] = temp;
+                }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("쉘정렬 종료, 소요시간: " + (end - start) +" ms");
+    }
+}
+
+public class Sorting {
+    public static void main(String[] args) {
+        System.out.print("배열크기를 입력하세요: ");
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+
+        int[] num = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            num[i] = (int) (Math.random() * 100);
+            //System.out.print(num[i] + " ");
+        }
+        System.out.println("난수배열 생성");
+        System.out.println();
+
+        Bubble bubble = new Bubble(num);
+        Selection selection = new Selection(num);
+        Insertion insertion = new Insertion(num);
+        Shell shell = new Shell(num);
+
+        bubble.start();
+        selection.start();
+        insertion.start();
+        shell.start();
+    }
+}
+```
+
+## 시간복잡도 
