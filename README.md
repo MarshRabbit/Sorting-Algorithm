@@ -23,7 +23,7 @@ class Bubble {
                 if (array[j] < array[j - 1]) {
                     temp = array[j - 1];
                     array[j - 1] = array[j];
-                    array[j] = array[j - 1];
+                    array[j] = temp;
                 }
         long end = System.currentTimeMillis();
         System.out.println("버블정렬 종료, 소요시간: " + (end - start) +" ms");
@@ -56,7 +56,7 @@ class Selection {
                     index = j;
             temp = array[index];
             array[index] = array[i];
-            array[i] = array[index];
+            array[i] = temp;
         }
         long end = System.currentTimeMillis();
         System.out.println("선택정렬 종료, 소요시간: " + (end - start) +" ms");
