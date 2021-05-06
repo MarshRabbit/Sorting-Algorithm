@@ -117,7 +117,7 @@ class Shell {
     public void start() {
         System.out.println("쉘정렬 시작");
         for (index = 0; gaps[index] > array.length; index++) {}
-
+        long start = System.currentTimeMillis();
         while (index >= 0) {
             int step = gaps[index--];
             for (int i = step; i < array.length; i++)
@@ -127,6 +127,7 @@ class Shell {
                     array[j-step] = temp;
                 }
         }
+        long end = System.currentTimeMillis();
+        System.out.println("쉘정렬 종료, 소요시간: " + (end - start) +" ms");
     }
-}
 ```
