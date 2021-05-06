@@ -94,3 +94,39 @@ class Insertion {
 
 ## 쉘정렬이란
 쉘 정렬은 삽입 정렬이 거의 정렬된 배열에서 최적의 성능을 내는 것에서 착안하여 삽입 정렬의 장점을 살리면서 단점을 최소화 하기 위해 고안한 정렬 방법이다. 
+
+기본적인 동작 과정은 우선 간격을 설정하고 각 간격끼리 분류된 서브 리스트에서 삽입 정렬을 실행한다. 그 다음 간격을 줄인 다음에 다시한번 삽입 정렬을 실행한다. 이 과정을 간격이 1이 될때 까지 반복하여 전체적인 삽입정렬을 실행한다.
+
+쉘 정렬은 간격의 설정에 따라서 알고리즘의 성능이 달라진다. 고로 갭의 크기를 정하는 것이 중요한데 여기서는 성능이 가장 좋다고 알려진 Marcin Ciura's gap sequence를 이용한다.
+
+Marcin Ciura's gap sequence는 1, 4, 10, 23, 57, 132, 301, 701 까지 알려져 있지만 여기에 2.25를 곱해 더 큰 간격을 설정할 수 있다.
+
+*구현*
+```java
+class Shell {
+    int[] array;
+    int temp, index;
+    int[] gaps =
+            { 1, 4, 10, 23, 57, 132, 301, 701, 1750, 3937, 8858, 19930, 44842, 100894,
+            227011, 510774, 1149241, 2585792, 5818032, 13090572};
+
+    Shell(int[] num) {
+        array = num;
+    }
+
+    public void start() {
+        System.out.println("쉘정렬 시작");
+        for (index = 0; gaps[index] > array.length; index++) {}
+
+        while (index >= 0) {
+            int step = gaps[index--];
+            for (int i = step; i < array.length; i++)
+                for (int j = i; j >= step && array[j] < array[j-step]; j -= step) {
+                    temp = array[j];
+                    array[j] = array[j-step];
+                    array[j-step] = temp;
+                }
+        }
+    }
+}
+```
